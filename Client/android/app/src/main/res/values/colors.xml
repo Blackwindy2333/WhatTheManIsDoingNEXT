@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material 3 近似 Apple 气质：中性灰阶 + 冷静蓝 -->
+    <color name="wtmd_primary">#0A84FF</color>
+    <color name="wtmd_on_primary">#FFFFFF</color>
+    <color name="wtmd_secondary">#5E5CE6</color>
+    <color name="wtmd_on_secondary">#FFFFFF</color>
+    <color name="wtmd_launcher_background">#F2F2F7</color>
+
+    <color name="wtmd_status_active">#34C759</color>
+    <color name="wtmd_status_paused">#FF9F0A</color>
+    <color name="wtmd_status_stopped">#FF453A</color>
+</resources>

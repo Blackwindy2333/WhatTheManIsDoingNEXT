@@ -1,0 +1,22 @@
+# native-tls 编译替身（见 Client/android/README.md「偏差与取舍」一节）。
+#
+# 背景：wtmd-core 的 ureq 依赖开启了 `native-tls` feature；native-tls 在
+# 非 Windows/非 Apple 平台（含 Android）落地到 openssl/openssl-sys，而本机
+# Windows 构建环境无 perl/make，无法为 Android 交叉编译 OpenSSL，cargo ndk
+# 会在 openssl-sys 的 build.rs 处失败。
+#
+# 本 crate 以 `[patch.crates-io]` 的形式替换 native-tls：公开 API 面与 ureq
+# 2.12.1（src/ntls.rs）实际使用的类型/签名一一对应，TLS 握手在运行期返回
+# 明确错误。这与 ureq 在仅启用 `native-tls` feature 时的运行期行为一致：
+# ureq 的 default_tls_config() 走 NoTlsConfig（见 ureq src/lib.rs 401-415 行），
+# 即 https 本来就不会使用 native-tls 连接器；http:// 上报不受影响。
+[package]
+name = "native-tls"
+version = "0.2.18"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "compile-only stand-in for native-tls used by the Android bridge workspace (no OpenSSL)"
+
+[lib]
+name = "native_tls"
+path = "src/lib.rs"

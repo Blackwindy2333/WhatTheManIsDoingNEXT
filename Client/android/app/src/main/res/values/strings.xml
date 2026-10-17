@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhatTheManDoing</string>
+
+    <!-- 设置页 -->
+    <string name="title_settings">设备上报设置</string>
+    <string name="subtitle_settings">配置保存在本机 config.json，业务规则由 Rust 核心（wtmd-core）执行</string>
+
+    <string name="section_status">状态</string>
+    <string name="status_label_service">采集服务</string>
+    <string name="status_value_running">运行中</string>
+    <string name="status_value_stopped">已停止</string>
+    <string name="status_value_unknown">未初始化</string>
+    <string name="status_label_current_app">当前前台应用</string>
+    <string name="status_label_last_report">最近上报</string>
+    <string name="status_none">（无）</string>
+
+    <string name="section_server">服务器与设备</string>
+    <string name="hint_api_base_url">服务器地址（http:// 或 https://）</string>
+    <string name="hint_device_id">设备 ID</string>
+    <string name="hint_device_name">设备名</string>
+    <string name="hint_api_token">API Token</string>
+    <string name="hint_poll_interval_ms">轮询间隔（毫秒，≥100）</string>
+    <string name="hint_blacklist">黑名单（逗号分隔，命中显示为 redacted）</string>
+    <string name="label_report_window_title">上报窗口标题</string>
+    <string name="desc_report_window_title">开启后携带窗口标题（Android 侧为 Activity 类名）</string>
+    <string name="label_privacy_pause">隐私暂停</string>
+    <string name="desc_privacy_pause">开启后暂停上报并隐藏应用信息</string>
+    <string name="action_save">保存设置</string>
+    <string name="saved_ok">已保存并热应用</string>
+    <string name="saved_fail">保存失败：%1$s</string>
+
+    <string name="section_permissions">权限与保活</string>
+    <string name="desc_permissions">仅侧载发布；前台应用监听使用无障碍权限（不会读取窗口内容）</string>
+    <string name="action_enable_accessibility">① 启用无障碍服务</string>
+    <string name="accessibility_steps">步骤：在「已下载的应用 / 下载的服务」中找到 WhatTheManDoing → 开启 → 确认允许。开启后系统会自动拉活并跨重启保持。</string>
+    <string name="action_battery_optimization">② 电池优化白名单</string>
+    <string name="battery_steps">选择「允许」加入白名单，避免国产 ROM 清理后台。</string>
+    <string name="action_autostart">③ 厂商自启动设置</string>
+    <string name="autostart_steps">未跳转成功时请手动开启：设置 → 应用 → WhatTheManDoing → 自启动/后台运行/电池无限制（小米、华为、OPPO、vivo、三星等）。</string>
+    <string name="permission_jump_failed">无法自动跳转：%1$s</string>
+
+    <!-- 无障碍服务 -->
+    <string name="accessibility_service_label">WhatTheManDoing 前台应用监听</string>
+    <string name="accessibility_service_description">监听前台应用切换（仅获取包名与窗口类名，不读取窗口内容），用于向你的自建服务器上报应用使用状态。不采集任何界面文本、图片或输入内容。</string>
+
+    <!-- 通知 -->
+    <string name="channel_status_name">上报状态</string>
+    <string name="channel_service_name">采集服务</string>
+    <string name="notify_status_title">WhatTheManDoing 采集中</string>
+    <string name="notify_action_pause">暂停上报</string>
+    <string name="notify_action_resume">恢复上报</string>
+    <string name="notify_action_stop">停止采集</string>
+    <string name="notify_service_enabled">无障碍服务已启用，开始采集前台应用</string>
+    <string name="notify_service_disabled">无障碍服务已停止，采集已结束</string>
+    <string name="notify_accessibility_needed">需要启用无障碍服务后才会开始采集（点击打开设置）</string>
+</resources>

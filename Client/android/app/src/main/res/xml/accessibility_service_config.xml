@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  无障碍服务配置（隐私优先）：
+  - 仅监听 typeWindowStateChanged（前台窗口切换）
+  - notificationTimeout=300ms 由系统侧事件节流（与 Rust 侧包名去重节流叠加）
+  - canRetrieveWindowContent=false：不读取任何窗口内容
+  - canRetrieveWindowContent/flagRequestFilterKeyEvents 等保持默认关闭
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault"
+    android:canRetrieveWindowContent="false"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="300"
+    android:settingsActivity="com.whatthemanddoing.app.MainActivity" />

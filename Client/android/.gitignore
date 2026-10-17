@@ -1,0 +1,13 @@
+# 构建产物（PLAN §9：只忽略构建产物/运行数据/密钥/IDE 杂项）
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Rust 构建产物（buildRust/build-native 脚本可重新生成）
+rust/target/
+app/src/main/jniLibs/

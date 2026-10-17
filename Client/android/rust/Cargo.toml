@@ -1,0 +1,33 @@
+# wtmd-android-bridge：Android JNI 桥（Rust 核心 + Kotlin 薄壳 架构中的 Rust 侧）。
+#
+# 独立 workspace（[workspace] 空表）：不加入仓库根 workspace，避免修改根
+# Cargo.toml；仍受仓库根 .cargo/config.toml 的 crates 镜像（rsproxy）覆盖。
+[workspace]
+
+[package]
+name = "wtmd-android-bridge"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "JNI bridge exposing wtmd-core to the Android shell (wtmd-android-app)"
+
+[lib]
+name = "wtmd_android_bridge"
+# cdylib：产出 libwtmd_android_bridge.so 供 System.loadLibrary；
+# rlib：保证 `cargo test` 能构建纯逻辑单测。
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+jni = "0.21"
+wtmd-core = { path = "../../core" }
+serde_json = "1"
+# 钉住 ureq 版本：vendor/native-tls-shim 的 API 面按 ureq 2.12.1 src/ntls.rs
+# 实际使用面裁剪，升版前需要重新核对。feature 必须与 wtmd-core 声明一致
+# （default-features=false + native-tls）：若在此启用 ureq 默认 feature 会
+# 把 rustls/ring 拉进依赖图，ring 的 C 编译在本机 MSVC 触发 cl D8050。
+ureq = { version = "=2.12.1", default-features = false, features = ["native-tls"] }
+
+[patch.crates-io]
+# 用编译替身替换 native-tls（Android 构建无法编译 OpenSSL）。
+# 原因与取舍见 vendor/native-tls-shim/Cargo.toml 与 Client/android/README.md。
+native-tls = { path = "vendor/native-tls-shim" }
