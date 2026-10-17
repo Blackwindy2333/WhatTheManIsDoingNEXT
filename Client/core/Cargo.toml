@@ -7,5 +7,13 @@ description = "WhatTheManDoingNEXT 共享核心：配置、协议、隐私、上
 
 [lib]
 name = "wtmd_core"
+crate-type = ["rlib", "cdylib"]
 
 [dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = "0.4"
+# ureq 2.x，禁用默认的 rustls(+ring) TLS，改用 native-tls（Windows 走 schannel，
+# 纯 Rust，无需 cc 编译 C 代码）；本机 MSVC 14.51.36231 + cc-rs 编译 ring 时稳定触发
+# cl D8050（c1.dll "未能将命令行放入调试记录中"），见测试报告偏差说明。
+ureq = { version = "2", default-features = false, features = ["native-tls"] }
