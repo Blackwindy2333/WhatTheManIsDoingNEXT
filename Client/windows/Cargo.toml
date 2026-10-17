@@ -1,0 +1,8 @@
+[package]
+name = "wtmd-client-win"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WhatTheManDoingNEXT Windows 客户端：前台应用采集、托盘与设置窗口"
+
+[dependencies]

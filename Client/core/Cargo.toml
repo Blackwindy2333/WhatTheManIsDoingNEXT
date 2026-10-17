@@ -1,0 +1,11 @@
+[package]
+name = "wtmd-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WhatTheManDoingNEXT 共享核心：配置、协议、隐私、上报、显示名"
+
+[lib]
+name = "wtmd_core"
+
+[dependencies]
