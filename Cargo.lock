@@ -1338,6 +1338,10 @@ checksum = "3ad82d2a33cdc9674dc7465672f271e096168fcdbe0f799d9e6db8c5892679dc"
 [[package]]
 name = "wtmd-client-win"
 version = "0.1.0"
+dependencies = [
+ "windows-sys 0.61.2",
+ "wtmd-core",
+]
 
 [[package]]
 name = "wtmd-core"

@@ -13,6 +13,7 @@ serde_json = "1"
 
 # MSVC /Z7 编译 sqlite3.c 这类巨型翻译单元会触发 cl error D8050
 # （未能将命令行放入调试记录中）；仅对该 C 依赖关闭调试信息规避。
+# （ring 的 C 代码同样受影响，但 core 已改用 native-tls/schannel，ring 不在依赖图。）
 [profile.dev.package.libsqlite3-sys]
 debug = false
 
