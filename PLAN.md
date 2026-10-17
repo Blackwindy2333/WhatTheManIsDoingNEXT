@@ -1,6 +1,8 @@
 # WhatTheManDoingNEXT 重构计划：Rust 多平台客户端 + 集中服务器 + Web 展示
 
-> 状态：**已确认（2026-10-17）**，可行性研究与实施方案，供后续开发参照。
+> 状态：**已确认（2026-10-17）· 实施完成（2026-10-17）**，可行性研究与实施方案，供后续开发参照。
+> 实施状态：阶段 0–6 全部落地并入库（git 历史见下），全量测试通过——wtmd-core 36/36、wtmd-client-win 27/27、wtmd-server 14/14、Android 桥 19/19、Kotlin 单测 22/22；Windows 与 Android（模拟器）端到端上报→聚合→网页展示均实测通过。已知取舍：Android `https://` 上报暂不可用（native-tls-shim 编译替身，见 README「已知取舍」）。
+> 提交历史（实施部分）：feat.repo-skeleton → feat.web-ui → fix.build（libsqlite3-sys D8050）→ feat.server → fix.repo → chore.build（Cargo.lock）→ feat.core → feat.win-client → fix.core（TLS 接线）→ feat.android-client。
 > 已确认决策：① 服务端用 Rust 重写；② Windows 客户端 UI = 托盘 + 设置窗口；③ Android 采集以**无障碍服务为主**（UsageStats 转可选降级）；④ **依赖一律使用国内镜像源**。
 > 环境结论：安卓环境已配置完毕（JDK 21 / Gradle 8.14.6 / SDK 35–37 / NDK 27.3+28.2 / 模拟器 AVD Pixel_API_36），仅剩 Rust 安卓编译目标与 cargo-ndk 待装。
 
