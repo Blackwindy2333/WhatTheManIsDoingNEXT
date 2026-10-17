@@ -5,6 +5,10 @@ Client/android/app/build/
 Client/android/.gradle/
 __pycache__/
 *.pyc
+*.obj
+*.o
+Server/tests/.tmp/
+Client/core/_test_tmp/
 
 # 运行数据
 *.db
