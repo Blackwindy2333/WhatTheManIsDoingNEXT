@@ -100,9 +100,16 @@ pub struct UreqHttp;
 
 impl HttpPort for UreqHttp {
     fn post_json(&self, url: &str, bearer_token: &str, body: &str) -> Result<HttpResponse, String> {
-        let agent = ureq::AgentBuilder::new()
-            .timeout(std::time::Duration::from_secs(10))
-            .build();
+        // ureq 2.x 只开 `native-tls` feature 时默认 TLS 后端是 NoTlsConfig，
+        // https 直接报 "cannot make HTTPS request because no TLS backend is
+        // configured"；必须显式接入 native_tls::TlsConnector（Windows 走
+        // schannel）。初始化失败时退回无 TLS 构造，http:// 仍可用。
+        let mut builder = ureq::AgentBuilder::new()
+            .timeout(std::time::Duration::from_secs(10));
+        if let Ok(connector) = native_tls::TlsConnector::new() {
+            builder = builder.tls_connector(std::sync::Arc::new(connector));
+        }
+        let agent = builder.build();
         let request = agent
             .post(url)
             .set("Authorization", &format!("Bearer {bearer_token}"))
@@ -289,5 +296,22 @@ mod tests {
         assert_eq!(token, "tok-123");
         let parsed: ReportPayload = serde_json::from_str(body).unwrap();
         assert_eq!(parsed, payload);
+    }
+
+    /// 回归测试：https 请求必须已接入 TLS 后端。
+    /// ureq 2.x 仅开 `native-tls` feature 时默认 NoTlsConfig，对 https URL 会
+    /// 快速报 "cannot make HTTPS request because no TLS backend is configured"；
+    /// 接线后请求会真正发起 TCP 连接（本测试指向无人监听的 127.0.0.1:1，失败
+    /// 文本是普通传输错误）。离线可用，不依赖网络。
+    #[test]
+    fn https_requests_have_tls_backend_wired() {
+        let http = UreqHttp;
+        let err = http
+            .post_json("https://127.0.0.1:1/api/v1/report", "tok", "{}")
+            .unwrap_err();
+        assert!(
+            !err.contains("no TLS backend"),
+            "https TLS 后端未接线: {err}"
+        );
     }
 }

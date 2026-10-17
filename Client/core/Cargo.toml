@@ -17,3 +17,7 @@ chrono = "0.4"
 # 纯 Rust，无需 cc 编译 C 代码）；本机 MSVC 14.51.36231 + cc-rs 编译 ring 时稳定触发
 # cl D8050（c1.dll "未能将命令行放入调试记录中"），见测试报告偏差说明。
 ureq = { version = "2", default-features = false, features = ["native-tls"] }
+# ureq 2.x 的 native-tls feature 不会自动成为默认 TLS 后端（lib.rs:401-432，
+# 无 `tls` feature 时 default_tls_config() 返回 NoTlsConfig），必须显式把
+# native_tls::TlsConnector 接到 AgentBuilder::tls_connector 才能用 https。
+native-tls = "0.2"
