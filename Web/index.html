@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>在干什么</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="toolbar" role="banner">
+        <div class="toolbar-inner">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div class="brand-text">
+              <h1 class="brand-title" id="page-title">在干什么</h1>
+              <p class="brand-sub" id="page-subtitle">What The Man Doing</p>
+            </div>
+          </div>
+          <div class="toolbar-actions">
+            <div class="status-pill" id="conn-pill" data-state="connecting">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span id="conn-label">连接中…</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content" id="content">
+        <section class="hero-bar" aria-live="polite">
+          <div>
+            <p class="hero-kicker">监控总览</p>
+            <p class="hero-meta" id="hero-meta">正在加载设备…</p>
+          </div>
+          <div class="hero-stats" id="hero-stats">
+            <div class="stat">
+              <span class="stat-value" id="stat-online">0</span>
+              <span class="stat-label">在线</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="stat-total">0</span>
+              <span class="stat-label">设备</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="devices-heading">
+          <div class="section-head">
+            <h2 id="devices-heading">设备</h2>
+            <span class="muted" id="device-count"></span>
+          </div>
+          <div class="device-grid" id="device-grid" aria-live="polite"></div>
+          <div class="empty-state" id="devices-empty" hidden>
+            <div class="empty-card">
+              <h3>暂无设备</h3>
+              <p>在 config.json 的 devices 中配置监控设备后，这里会显示各台机器「在干什么」。</p>
+            </div>
+          </div>
+          <div class="empty-state" id="devices-error" hidden>
+            <div class="empty-card">
+              <h3>无法加载设备</h3>
+              <p id="devices-error-text">请稍后重试，或检查服务是否正常。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="history-section" aria-labelledby="history-heading" hidden>
+          <div class="section-head">
+            <h2 id="history-heading">最近切换</h2>
+            <span class="muted" id="history-device-label">选择一台设备查看</span>
+          </div>
+          <ol class="timeline" id="timeline"></ol>
+          <p class="empty" id="history-empty">选择一台设备后显示时间线。</p>
+        </section>
+
+        <section class="section" aria-labelledby="help-heading">
+          <div class="section-head">
+            <h2 id="help-heading">帮助</h2>
+            <span class="muted">新设备接入</span>
+          </div>
+          <details class="help-card">
+            <summary>如何接入设备</summary>
+            <ol class="help-steps">
+              <li><strong>Windows：</strong>运行 <code>wtmd-client-win</code>，在设置窗口填写服务器地址、<code>device_id</code>、<code>api_token</code> 并启用。</li>
+              <li><strong>Android：</strong>安装 APK，按引导开启无障碍服务与自启动/电池白名单。</li>
+              <li><strong>服务器：</strong>在 <code>Server\config.json</code> 设置 <code>api_token</code>（默认 <code>change-me</code>，必须更换）。</li>
+            </ol>
+          </details>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>只读展示 · 数据由服务端代理聚合 · 不会向访客暴露设备 Token</p>
+      </footer>
+    </div>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
