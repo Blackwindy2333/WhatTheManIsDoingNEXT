@@ -1,0 +1,19 @@
+[package]
+name = "wtmd-server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WhatTheManDoingNEXT 服务器：接收上报、整合状态、公开 API、SSE、限流、托管 Web"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "net", "io-util", "sync", "time"] }
+tower-http = { version = "0.6", features = ["cors", "fs"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = "0.4"
+tokio-stream = { version = "0.1", features = ["sync", "time"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
